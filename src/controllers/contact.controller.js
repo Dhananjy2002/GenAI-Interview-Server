@@ -20,14 +20,7 @@ export async function createContactQuery(req, res) {
             return res.status(400).json({ message: "Invalid email address" });
         }
 
-        const contact = await Contact.create({
-            name,
-            email,
-            subject,
-            message
-        });
-
-        // Send acknowledgment email to user
+        // 1. First attempt to send the acknowledgment email
         try {
             const htmlContent = getContactAckTemplate(name);
             await sendEmail(
@@ -38,8 +31,16 @@ export async function createContactQuery(req, res) {
             );
         } catch (mailError) {
             console.error("Failed to send contact acknowledgment email:", mailError.message);
-            // We don't return error here because the query is already saved in DB
+            return res.status(500).json({ message: "Failed to send email. Please try again later.", error: mailError.message });
         }
+
+        // 2. If email is successful, save the query to the database
+        const contact = await Contact.create({
+            name,
+            email,
+            subject,
+            message
+        });
 
         return res.status(201).json({
             message: "Query submitted successfully",

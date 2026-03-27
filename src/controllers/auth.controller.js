@@ -33,6 +33,22 @@ export async function register(req, res) {
         if (alreadyUser) {
             return res.status(400).json({ message: "User already exists" })
         }
+
+        // 1. First attempt to send the Welcome Email
+        try {
+            const htmlEmail = getWelcomeEmailTemplate(username);
+            await sendEmail(
+                email,
+                "Welcome Aboard Interview Master! 🎯 Your Onboarding Starts Here",
+                `Hi ${username}, welcome to Interview Master! We are excited to have you on board.`,
+                htmlEmail
+            );
+        } catch (mailError) {
+            console.error("Failed to send welcome email:", mailError.message);
+            return res.status(500).json({ message: "Failed to send welcome email. Please try again later.", error: mailError.message });
+        }
+
+        // 2. If email is successful, register the user in the database
         const user = await User.create({ username, email, password })
         const token = generateToken(user)
         res.cookie("token", token, {
@@ -41,19 +57,6 @@ export async function register(req, res) {
             sameSite: "none",
             maxAge: 24 * 60 * 60 * 1000
         })
-
-        // SEND WELCOME EMAIL
-        try {
-            const htmlEmail = getWelcomeEmailTemplate(user.username);
-            await sendEmail(
-                user.email,
-                "Welcome Aboard Interview Master! 🎯 Your Onboarding Starts Here",
-                `Hi ${user.username}, welcome to Interview Master! We are excited to have you on board.`,
-                htmlEmail
-            );
-        } catch (mailError) {
-            console.error("Failed to send welcome email:", mailError.message);
-        }
 
         return res.status(201).json({
             message: "User registered successfully",
