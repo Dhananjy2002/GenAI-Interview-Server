@@ -10,6 +10,10 @@ export const config = {
     jwt_secret: process.env.JWT_SECRET,
     google_genai_api_key: process.env.GOOGLE_GENAI_API_KEY,
     frontend_url: process.env.FRONTEND_URL || 'http://localhost:5173',
+    google_client_id: process.env.GOOGLE_CLIENT_ID,
+    google_client_secret: process.env.GOOGLE_CLIENT_SECRET,
+    google_refresh_token: process.env.GOOGLE_REFRESH_TOKEN,
+    google_user: process.env.GOOGLE_USER,
 };
 
 // Validate critical env vars
