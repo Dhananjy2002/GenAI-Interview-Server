@@ -44,7 +44,7 @@ export const getWelcomeEmailTemplate = (username) => {
                 </ul>
 
                 <div class="button-wrapper">
-                    <a href="https://genai-interview-client.vercel.app/" class="button">Go to Dashboard</a>
+                    <a href="https://genai-interview-client.vercel.app/login" class="button">Login to Dashboard</a>
                 </div>
                 
                 <p style="margin-top: 40px;">If you have any questions, simply reply to this email. We're here to help!</p>
