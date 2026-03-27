@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
+import InterviewReport from "./interviewreport.model.js";
 
 
 
@@ -39,5 +40,20 @@ userSchema.methods.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
 }
 
+// Cascade delete: remove all reports when a user is deleted via findOneAndDelete
+userSchema.post("findOneAndDelete", async function (doc) {
+    if (doc) {
+        await InterviewReport.deleteMany({ user: doc._id });
+        console.log(`🗑️  Deleted all reports for user ${doc._id}`);
+    }
+});
+
+// Cascade delete: remove all reports when a user is deleted via deleteOne
+userSchema.post("deleteOne", { document: true, query: false }, async function (doc) {
+    if (doc) {
+        await InterviewReport.deleteMany({ user: doc._id });
+        console.log(`🗑️  Deleted all reports for user ${doc._id}`);
+    }
+});
 
 export const User = mongoose.model("User", userSchema)
