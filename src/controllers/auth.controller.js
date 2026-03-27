@@ -35,7 +35,7 @@ export async function register(req, res) {
         res.cookie("token", token, {
             httpOnly: true,
             secure: true,
-            sameSite: "strict",
+            sameSite: "none",
             maxAge: 24 * 60 * 60 * 1000
         })
 
@@ -88,7 +88,7 @@ export async function login(req, res) {
         res.cookie("token", token, {
             httpOnly: true,
             secure: true,
-            sameSite: "strict",
+            sameSite: "none",
             maxAge: 24 * 60 * 60 * 1000
         })
 
@@ -123,7 +123,11 @@ export async function logout(req, res) {
     try {
         const token = req.token;
         await Blacklist.create({ token });
-        res.clearCookie("token");
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none"
+        });
         return res.status(200).json({ message: "User logged out successfully" });
     } catch (error) {
         console.log("Error in logout controller", error);
