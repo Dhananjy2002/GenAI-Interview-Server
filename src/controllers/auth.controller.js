@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken"
 import { config } from "../config/config.js"
 import { sendEmail } from "../services/email.service.js"
 import crypto from "crypto"
+import { getWelcomeEmailTemplate, getResetPasswordEmailTemplate } from "../utils/emailTemplates.js"
 
 
 /**
@@ -43,14 +44,15 @@ export async function register(req, res) {
 
         // SEND WELCOME EMAIL
         try {
+            const htmlEmail = getWelcomeEmailTemplate(user.username);
             await sendEmail(
                 user.email,
-                "Welcome to Interview Master!",
+                "Welcome Aboard Interview Master! 🎯 Your Onboarding Starts Here",
                 `Hi ${user.username}, welcome to Interview Master! We are excited to have you on board.`,
-                `<h1>Welcome, ${user.username}!</h1><p>We're thrilled to have you here at Interview Master.</p>`
+                htmlEmail
             );
         } catch (mailError) {
-             console.error("Failed to send welcome email:", mailError.message);
+            console.error("Failed to send welcome email:", mailError.message);
         }
 
         return res.status(201).json({
@@ -188,11 +190,12 @@ export async function forgotPassword(req, res) {
         const resetUrl = `${config.frontend_url}/reset-password/${resetToken}`;
 
         try {
+            const htmlEmail = getResetPasswordEmailTemplate(resetUrl);
             await sendEmail(
                 user.email,
                 "Password Reset Request",
                 `You requested a password reset. Please go to this link to reset your password: ${resetUrl}`,
-                `<p>You requested a password reset.</p><p>Click <a href="${resetUrl}">here</a> to reset your password.</p><p>This link is valid for 15 minutes.</p>`
+                htmlEmail
             );
             return res.status(200).json({ message: "Password reset email sent" });
         } catch (error) {
