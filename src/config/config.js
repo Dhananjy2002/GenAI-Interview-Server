@@ -14,6 +14,7 @@ export const config = {
     google_client_secret: process.env.GOOGLE_CLIENT_SECRET,
     google_refresh_token: process.env.GOOGLE_REFRESH_TOKEN,
     google_user: process.env.GOOGLE_USER,
+    resend_api_key: process.env.RESEND_API_KEY,
 };
 
 // Validate critical env vars
