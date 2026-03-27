@@ -9,6 +9,7 @@ export const config = {
     db_name: process.env.DB_NAME,
     jwt_secret: process.env.JWT_SECRET,
     google_genai_api_key: process.env.GOOGLE_GENAI_API_KEY,
+    frontend_url: process.env.FRONTEND_URL || 'http://localhost:5173',
 };
 
 // Validate critical env vars
