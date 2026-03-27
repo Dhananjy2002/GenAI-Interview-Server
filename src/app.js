@@ -13,8 +13,15 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: [config.frontend_url, "http://localhost:5173"],
-    credentials: true
+    origin: [
+        config.frontend_url, 
+        "http://localhost:5173", 
+        "http://127.0.0.1:5173",
+        "http://localhost:5174",
+        "http://127.0.0.1:5174"
+    ].filter(Boolean),
+    credentials: true,
+    optionsSuccessStatus: 200
 }));
 
 app.use("/api/v1/auth", authRouter);
