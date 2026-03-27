@@ -78,7 +78,7 @@ export const getResetPasswordEmailTemplate = (resetUrl) => {
     <body>
         <div class="container">
             <div class="logo">
-                <img src="https://raw.githubusercontent.com/Dhananjay2002/GenAI-Interview-Server/main/assets/logo.png" alt="Interview Master" style="height: 50px; vertical-align: middle; margin-right: 10px; border-radius: 6px;" />
+                <img src="https://raw.githubusercontent.com/Dhananjy2002/GenAI-Interview-Server/main/assets/logo.png" alt="Interview Master" style="height: 50px; vertical-align: middle; margin-right: 10px; border-radius: 6px;" />
                 Interview Master
             </div>
             <h2>Password Reset Request</h2>
@@ -142,7 +142,7 @@ export const getContactAckTemplate = (name) => {
     <body>
         <div class="container">
             <div class="header">
-                <img src="https://raw.githubusercontent.com/Dhananjay2002/GenAI-Interview-Server/main/assets/logo.png" alt="Interview Master" style="height: 50px; margin-bottom: 10px; border-radius: 8px;" />
+                <img src="https://raw.githubusercontent.com/Dhananjy2002/GenAI-Interview-Server/main/assets/logo.png" alt="Interview Master" style="height: 50px; margin-bottom: 10px; border-radius: 8px;" />
                 <h1>📬 Interview Master</h1>
                 <p>Your AI-Powered Interview Companion</p>
             </div>
