@@ -185,6 +185,7 @@ async function generatePDFfromHTML(htmlContent) {
   await page.setContent(htmlContent, { waitUntil: "networkidle0" });
   const pdfBuffer = await page.pdf({ 
       format: "A4", 
+      pageRanges: '1',
       printBackground: true,
       margin: {
           top: '0.4in',
@@ -237,15 +238,15 @@ async function generateResumePDF({ resume, jobDescription, selfDescription }) {
         ${selfDescription}
 
         Requirements:
-        1. **Strict One-Page Limit**: Use highly compact, professional styling. The generated HTML MUST fit on exactly one A4 page. 
-        2. **Layout**: Use a clean, modern, and space-efficient layout.
+        1. **STRICT ONE-PAGE LIMIT**: The HTML MUST fit on exactly one A4 page. Cut content mercilessly to fit. Max 3 bullet points per role. Omit older roles if needed.
+        2. **Layout**: Use a clean, modern, and highly space-efficient flexbox layout.
         3. **Styling**: Include an internal <style> block with:
-           - Professional sans-serif font (e.g., Arial) at 10-11pt size.
-           - Line-height: 1.3.
-           - Minimal section margins (max 1rem).
+           - Professional sans-serif font (e.g., Arial, Helvetica) at exactly 9pt or 10pt size.
+           - Line-height: 1.15.
+           - Minimal section margins (max 0.5rem) and padding.
            - Professional color palette (Blues/Greys).
-        4. **Content**: Be concise. Prioritize only the most relevant achievements for the Job Description. Use bullet points.
-        5. **Sections**: Contact, Professional Summary, Relevant Experience, Skills Matrix, Education, Projects/Certs.
+        4. **Content**: Be extremely concise. Prioritize only the most relevant achievements for the Job Description. Use short bullet points.
+        5. **Sections**: Contact, Professional Summary, Relevant Experience, Skills Matrix, Education. Keep them dense.
         6. The HTML must be a complete document with <html>, <head>, and <body> tags.
 
         Return the response in the following JSON format:
