@@ -30,6 +30,7 @@ export const getWelcomeEmailTemplate = (username) => {
     <body>
         <div class="container">
             <div class="header">
+                <img src="https://raw.githubusercontent.com/Dhananjy2002/GenAI-Interview-Server/main/assets/logo.png" alt="Interview Master" style="height: 60px; margin-bottom: 12px; border-radius: 8px;" />
                 <h1>Interview Master</h1>
             </div>
             <div class="content">
@@ -76,7 +77,10 @@ export const getResetPasswordEmailTemplate = (resetUrl) => {
     </head>
     <body>
         <div class="container">
-            <div class="logo">Interview Master</div>
+            <div class="logo">
+                <img src="https://raw.githubusercontent.com/Dhananjay2002/GenAI-Interview-Server/main/assets/logo.png" alt="Interview Master" style="height: 50px; vertical-align: middle; margin-right: 10px; border-radius: 6px;" />
+                Interview Master
+            </div>
             <h2>Password Reset Request</h2>
             <p>You recently requested to reset your password for your Interview Master account. Click the button below to proceed. This link is valid for **15 minutes**.</p>
             <div style="margin: 30px 0;">
@@ -138,6 +142,7 @@ export const getContactAckTemplate = (name) => {
     <body>
         <div class="container">
             <div class="header">
+                <img src="https://raw.githubusercontent.com/Dhananjay2002/GenAI-Interview-Server/main/assets/logo.png" alt="Interview Master" style="height: 50px; margin-bottom: 10px; border-radius: 8px;" />
                 <h1>📬 Interview Master</h1>
                 <p>Your AI-Powered Interview Companion</p>
             </div>
