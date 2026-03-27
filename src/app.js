@@ -5,6 +5,7 @@ import swaggerSpec from "./config/swagger.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { interviewRouter } from "./routes/interview.routes.js";
+import { contactRouter } from "./routes/contact.routes.js";
 import { config } from "./config/config.js";
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(cors({
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/interview", interviewRouter);
+app.use("/api/v1/contact", contactRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 export default app;

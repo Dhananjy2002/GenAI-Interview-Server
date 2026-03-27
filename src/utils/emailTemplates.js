@@ -91,3 +91,31 @@ export const getResetPasswordEmailTemplate = (resetUrl) => {
     </html>
     `;
 };
+
+export const getContactAckTemplate = (name) => {
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            body { font-family: sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 20px auto; border: 1px solid #eee; padding: 20px; border-top: 4px solid #6366f1; }
+            .footer { margin-top: 30px; font-size: 12px; color: #888; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>We've Received Your Message!</h2>
+            <p>Hi ${name},</p>
+            <p>Thank you for reaching out to **Interview Master**. We've received your query and our team will get back to you as soon as possible.</p>
+            <p>In the meantime, feel free to explore our dashboard for the latest interview preparation guides.</p>
+            <p>Best regards,<br>The Interview Master Team</p>
+            <div class="footer">
+                This is an automated acknowledgment. No need to reply.
+            </div>
+        </div>
+    </body>
+    </html>
+    `;
+};
