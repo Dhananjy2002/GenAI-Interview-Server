@@ -1,6 +1,7 @@
 import { GoogleGenerativeAI, SchemaType } from "@google/generative-ai";
 import { config } from "../config/config.js";
-import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-core";
+import chromium from "@sparticuz/chromium";
 
 const genAI = new GoogleGenerativeAI(config.google_genai_api_key);
 
@@ -161,8 +162,24 @@ Please provide a structured JSON output exactly matching the provided schema. In
 }
 
 async function generatePDFfromHTML(htmlContent) {
+  let executablePath = null;
+  try {
+    executablePath = await chromium.executablePath();
+  } catch (error) {
+    console.error("Using fallback local Chromium path:", error.message);
+  }
+
   const browser = await puppeteer.launch({
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    args: [
+      ...chromium.args,
+      '--no-sandbox', 
+      '--disable-setuid-sandbox', 
+      '--disable-dev-shm-usage', 
+      '--single-process'
+    ],
+    defaultViewport: chromium.defaultViewport,
+    executablePath: executablePath || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    headless: chromium.headless || true,
   });
   const page = await browser.newPage();
   await page.setContent(htmlContent, { waitUntil: "networkidle0" });
